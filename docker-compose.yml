@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+
+  app:
+    build:
+      args:
+        user: ABR_USR
+        uid: 1000
+      context: ./docker/php
+    image: abr-image-network
+    container_name: abr-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    links:
+      - db
+    networks:
+      - abr-network
+  
+  db:
+    build:
+      context: ./docker/mysql
+      args:
+        mysql_version: ${DB_VERSION}
+    container_name: abr-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - abr-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: abr-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - abr-network
+
+networks:
+  abr-network:
+    driver: bridge
