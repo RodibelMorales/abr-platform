@@ -34,11 +34,11 @@ return new class extends Migration
             $table->string('address');
             $table->string('contact_number');
             $table->string('slug');
-            $table->string('place')
+            $table->string('place');
             $table->bigInteger('company_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('company_id')
+            $table->foreign('company_id')//UnitCompany
                 ->references('id')
                 ->on('Company')
                 ->onCascade('cascade');
@@ -147,7 +147,7 @@ return new class extends Migration
                 ->onCascade('cascade');
             $table->foreign('candidate_id')
                 ->references('id')
-                ->on('Candidates')
+                ->on('Candidate')
                 ->onCascade('cascade');
         });
         Schema::create('FamiliarInfo', function (Blueprint $table) {
@@ -161,7 +161,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('People')
                 ->onCascade('cascade');
-            $table->foreign('company_id')
+            $table->foreign('company_id')//FamiliarInfo
                 ->references('id')
                 ->on('Company')
                 ->onCascade('cascade');
@@ -349,7 +349,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('JobTitle')
                 ->onCascade('cascade');
-            $table->foreign('company_id')
+            $table->foreign('company_id')//LaboralReference
                 ->references('id')
                 ->on('Company')
                 ->onCascade('cascade');

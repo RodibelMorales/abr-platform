@@ -36,7 +36,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->foreign('job_title_id')
                 ->references('id')
-                ->on('JobTitles')
+                ->on('JobTitle')
                 ->onCascade('cascade');
         });
     }
