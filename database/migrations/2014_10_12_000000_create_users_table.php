@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('job_title_id')->unsigned();
+            $table->bigInteger('job_title_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -48,7 +48,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('JobTitles');
+        Schema::dropIfExists('JobTitle');
         Schema::dropIfExists('users');
     }
 };

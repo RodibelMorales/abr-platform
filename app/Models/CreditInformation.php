@@ -7,15 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imss extends Model
+class CreditInformation extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory,SoftDeletes;
     protected $fillable = [
-        'razon',
-        'start_date',
-        'end_date',
-        'status',
-        'comment'
+        'credit_type',
+        'institution',
+        'situation'
     ];
     public function candidate():BelongsTo{
         return $this->belongsTo(Candidate::class);

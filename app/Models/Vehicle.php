@@ -7,17 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imss extends Model
+class Vehicle extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory,SoftDeletes;
     protected $fillable = [
-        'razon',
-        'start_date',
-        'end_date',
-        'status',
-        'comment'
+        'type',
+        'mark',
+        'model',
+        'price',
+        'status'
     ];
-    public function candidate():BelongsTo{
+    public function candidate():BelongsTo {
         return $this->belongsTo(Candidate::class);
     }
 }

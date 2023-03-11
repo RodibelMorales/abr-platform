@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imss extends Model
+class UnitCompany extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory,SoftDeletes;
+
     protected $fillable = [
-        'razon',
-        'start_date',
-        'end_date',
-        'status',
-        'comment'
+        'name',
+        'address',
+        'contact_number',
+        'slug',
+        'place'
     ];
-    public function candidate():BelongsTo{
-        return $this->belongsTo(Candidate::class);
+
+    public function company(): BelongsTo {
+        return $this->belongsTo(Company::class);
     }
 }

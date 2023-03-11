@@ -78,12 +78,12 @@ return new class extends Migration
             $table->enum('gender',[ 'M','F' ]);
             $table->string('nationality');
             $table->string('civil_state');
-            $table->bigInteger('address_id')->unsigned();
+            $table->bigInteger('people_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('address_id')
+            $table->foreign('people_id')
                 ->references('id')
-                ->on('HistoricalAddress')
+                ->on('People')
                 ->onCascade('cascade');
         });
         Schema::create('Survey', function (Blueprint $table) {
@@ -93,7 +93,7 @@ return new class extends Migration
             $table->longText('comments');
             $table->bigInteger('job_title_id')->unsigned()->nullable();
             $table->bigInteger('created_by')->unsigned()->nullable();
-            $table->bigInteger('aproveded_by')->unsigned()->nullable();
+            $table->bigInteger('aprovebed_by')->unsigned()->nullable();
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->bigInteger('deleted_by')->unsigned()->nullable();
             $table->bigInteger('completed_by')->unsigned()->nullable();
@@ -152,16 +152,21 @@ return new class extends Migration
         });
         Schema::create('FamiliarInfo', function (Blueprint $table) {
             $table->bigIncrements('id')->index();
+            $table->bigInteger('candidate_id')->unsigned();
             $table->bigInteger('people_id')->unsigned();
             $table->bigInteger('company_id')->unsigned();
             $table->bigInteger('relation_type_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('candidate_id')
+                ->references('id')
+                ->on('Candidate')
+                ->onCascade('cascade');
             $table->foreign('people_id')
                 ->references('id')
                 ->on('People')
                 ->onCascade('cascade');
-            $table->foreign('company_id')//FamiliarInfo
+            $table->foreign('company_id')
                 ->references('id')
                 ->on('Company')
                 ->onCascade('cascade');
@@ -228,13 +233,13 @@ return new class extends Migration
             $table->bigIncrements('id')->index();
             $table->bigInteger('income');
             $table->bigInteger('contribution');
-            $table->bigInteger('belongs_to_candidate')->unsigned();
+            $table->bigInteger('candidate_id')->unsigned();
             $table->bigInteger('people_id')->unsigned();
             $table->bigInteger('relation_type_id')->unsigned();
             $table->bigInteger('job_title_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('belongs_to_candidate')
+            $table->foreign('candidate_id')
                 ->references('id')
                 ->on('Candidate')
                 ->onCascade('cascade');
@@ -297,9 +302,9 @@ return new class extends Migration
             $table->string('institution');
             $table->string('doc');
             $table->string('sheet');
+            $table->string('value');
             $table->bigInteger('candidate_id')->unsigned();
             $table->bigInteger('question_id')->unsigned();
-            $table->string('value');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('candidate_id')

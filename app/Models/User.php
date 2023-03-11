@@ -9,8 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable //implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -46,4 +47,22 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function surveyCreatedBy():HasMany{
+        return $this->hasMany(Survey::class,'created_by');
+    }
+    public function surveyAprovebedBy():HasMany{
+        return $this->hasMany(Survey::class,'aprovebed_by');
+    }
+    public function surveyUpdatedBy():HasMany{
+        return $this->hasMany(Survey::class,'updated_by');
+    }
+    public function surveyDeletedBy():HasMany{
+        return $this->hasMany(Survey::class,'deleted_by');
+    }
+    public function surveyCompletedBy():HasMany{
+        return $this->hasMany(Survey::class,'completed_by');
+    }
+    public function surveyReclutedBy():HasMany{
+        return $this->hasMany(Survey::class,'recluted_by');
+    }
 }

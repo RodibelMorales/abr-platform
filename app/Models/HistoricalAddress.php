@@ -7,17 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Imss extends Model
+class HistoricalAddress extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory,SoftDeletes;
     protected $fillable = [
-        'razon',
-        'start_date',
-        'end_date',
+        'address',
         'status',
-        'comment'
+        'residence_time'
     ];
-    public function candidate():BelongsTo{
-        return $this->belongsTo(Candidate::class);
+
+    public function people():BelongsTo {
+        return $this->belongsTo(People::class);
     }
 }
